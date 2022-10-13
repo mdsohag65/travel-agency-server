@@ -31,6 +31,19 @@ async function run() {
             const place = await placeCollection.findOne(query);
             res.send(place);
         });
+
+        app.post('/place', async (req, res) => {
+            const newPlace = req.body;
+            const result = await placeCollection.insertOne(newPlace);
+            res.send(result);
+        });
+
+        app.delete('/place/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await placeCollection.deleteOne(query);
+            res.send(result);
+        })
     }
     finally {
 
